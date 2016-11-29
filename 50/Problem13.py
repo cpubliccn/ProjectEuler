@@ -207,3 +207,6 @@ text = '''
 53503534226472524250874054075591789781264330331690
 '''
 
+lines = text.strip().split("\n")
+sum = sum([int(line) for line in lines])
+print str(sum)[:10]

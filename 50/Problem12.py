@@ -49,32 +49,35 @@ print "time:", end - start, "s"
 
 import time
 
-prime_list = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]
+start = time.time()
 
 
-def divisor():
-    time.clock()
-    for x in xrange(10000, 55555):
-        n_List = xrange(1, x)
-        s = sum(n_List)
-        fProduct = 1
-        for i in xrange(0, len(prime_list)):
-            counter = 1
-            flag = True
-            if prime_list[i] <= s:
-                while flag:
-                    d = s / prime_list[i]
-                    m = s % prime_list[i]
-                    if m != 0:
-                        flag = False
-                    else:
-                        counter += 1
-                        s = d
-                fProduct *= counter
-            else:
-                break
-        if fProduct > 500:
-            return time.clock(), x, sum(n_List), fProduct
+def count_factors(n):
+    result = 0
+    for x in range(1, int(n**0.5) + 1):
+        if n % x == 0:
+            result += 2
+            if x * x == n:
+                result -= 1
+    return result
 
 
-print divisor()
+def count_triangle_factors(limit):
+    cnt = 0
+    i = 1
+    triangle = 0
+    while cnt < limit:
+        triangle = i * (i+1) / 2
+        if i % 2 == 0:
+            cnt = count_factors(i/2) * count_factors(i+1)
+        else:
+            cnt = count_factors(i) * count_factors((i+1)/2)
+        i += 1
+    return i-1, cnt, triangle
+
+
+result = count_triangle_factors(500)
+end = time.time()
+
+print end - start, result
+
