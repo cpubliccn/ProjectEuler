@@ -57,19 +57,21 @@ l = len(a)
 
 def process():
 	for row in range(l-1, 1, -1):
-		for col in range(0, len(a[row]) - 1):
+		row_length = len(a[row])
+		for col in range(0, row_length):
 			#print row,col,a[row][col]
 			if col == 0 and a[row][col] < a[row][col+1]:
 				a[row][col] = 0
-			elif col == len(a[row]) - 1 and a[row][col] < a[row][col - 1]:
+			elif col == row_length - 1 and a[row][col] < a[row][col - 1]:
 				a[row][col] = 0
 			else:
-				if col > 1 and col < len(a[row]) -1:
+				if col > 1 and col < row_length -1:
+					if row == 14 and col == 13:
+						print a[row][col], a[row][col-1], a[row][col+1]
 					if a[row][col] < a[row][col-1] and a[row][col] < a[row][col+1]:
-						a[row][col] == 0
-
-
+						a[row][col] = 0
 
 
 process()
-print a
+for x in a:
+	print x
