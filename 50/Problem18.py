@@ -34,7 +34,7 @@ However, Problem 67, is the same challenge with a triangle containing one-hundre
 it cannot be solved by brute force, and requires a clever method! ;o)
 '''
 
-text = '''
+text_array = '''
 75
 95 64
 17 47 82
@@ -50,5 +50,26 @@ text = '''
 91 71 52 38 17 14 91 43 58 50 27 29 48
 63 66 04 68 89 53 67 30 73 16 69 87 40 31
 04 62 98 27 23 09 70 98 73 93 38 53 60 04 23
-'''
+'''.strip().split("\n")
 
+a = [[int(x) for x in line.strip().split(" ")] for line in text_array]
+l = len(a)
+
+def process():
+	for row in range(l-1, 1, -1):
+		for col in range(0, len(a[row]) - 1):
+			#print row,col,a[row][col]
+			if col == 0 and a[row][col] < a[row][col+1]:
+				a[row][col] = 0
+			elif col == len(a[row]) - 1 and a[row][col] < a[row][col - 1]:
+				a[row][col] = 0
+			else:
+				if col > 1 and col < len(a[row]) -1:
+					if a[row][col] < a[row][col-1] and a[row][col] < a[row][col+1]:
+						a[row][col] == 0
+
+
+
+
+process()
+print a
