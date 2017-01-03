@@ -72,6 +72,16 @@ def process():
 						a[row][col] = 0
 
 
-process()
-for x in a:
-	print x
+def print_array(a):
+	for row in a:
+		print row
+
+def pre_process():
+	for row in range(l-1, 0, -1):
+		row_length = len(a[row])
+		for col in range(0, row_length-1):
+			a[row-1][col] += (a[row][col] > a[row][col+1] and a[row][col] or a[row][col+1])
+		#print_array(a)
+
+pre_process()
+print a[0][0]
