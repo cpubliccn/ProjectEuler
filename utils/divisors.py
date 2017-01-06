@@ -1,4 +1,5 @@
 # -*- coding:utf-8 -*-
+import math
 
 def get_proper_divisors(n):
 	a = []

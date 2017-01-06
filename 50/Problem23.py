@@ -20,15 +20,46 @@ two abundant numbers is less than this limit.
 Find the sum of all the positive integers which cannot be written as the sum of 
 two abundant numbers.
 '''
+import sys,math,itertools
+import time
 
+sys.path.append("..")
+start = time.time()
 import utils.divisors
--
+
 def get_divisor_type(n):
-	sum_of_divisors = sum(divisors.get_proper_divisors(n))
+	sum_of_divisors = sum(utils.divisors.get_proper_divisors(n))
 	if sum_of_divisors == n:
 		return 0
-	else if sum_of_divisors < n:
+	elif sum_of_divisors < n:
 		return -1
 	else:
 		return 1
 
+
+abundant_numbers = []
+sum_abundant_nums = []
+a = range(1, 28124)
+
+for i in range(1, 28124):
+	if get_divisor_type(i) == 1:
+		abundant_numbers.append(i)
+
+print "generate abundant_numbers:", len(abundant_numbers), time.time() - start
+
+for i in abundant_numbers:	
+	idx = abundant_numbers.index(i)
+	for j in abundant_numbers[idx:]:
+		k = i+j
+		if k < 28124 and k not in sum_abundant_nums:
+			sum_abundant_nums.append(i+j)
+
+print "generate sum_abundant_numbers:", len(sum_abundant_nums), time.time() - start
+print sum_abundant_nums[0],sum_abundant_nums[-1]
+
+b = [n for n in a if n not in sum_abundant_nums]
+
+result = sum(b)
+end = time.time()
+
+print end - start, result
