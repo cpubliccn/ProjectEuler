@@ -37,27 +37,28 @@ def get_divisor_type(n):
 		return 1
 
 
+limit = 28123
 abundant_numbers = []
-sum_abundant_nums = []
-a = range(1, 28124)
+sum_abundant_nums = [False for i in range(limit+1)]
 
-for i in range(1, 28124):
+for i in range(limit+1):
 	if get_divisor_type(i) == 1:
 		abundant_numbers.append(i)
 
-print "generate abundant_numbers:", len(abundant_numbers), time.time() - start
+#print abundant_numbers[:10]
+print "generate abundant_numbers:", time.time() - start
 
-for i in abundant_numbers:	
-	idx = abundant_numbers.index(i)
-	for j in abundant_numbers[idx:]:
-		k = i+j
-		if k < 28124 and k not in sum_abundant_nums:
-			sum_abundant_nums.append(i+j)
+#a1 = sorted([sum(i) for i in itertools.product(abundant_numbers, abundant_numbers)])
+#print a1[:10]
 
-print "generate sum_abundant_numbers:", len(sum_abundant_nums), time.time() - start
-print sum_abundant_nums[0],sum_abundant_nums[-1]
+for j in sorted([sum(i) for i in itertools.product(abundant_numbers, abundant_numbers)]):
+	if j > limit:
+		break
+	sum_abundant_nums[j] = True
 
-b = [n for n in a if n not in sum_abundant_nums]
+print "generate sum_abundant_numbers:", time.time() - start
+
+b = [n for n in range(limit+1) if sum_abundant_nums[n] == False]
 
 result = sum(b)
 end = time.time()
